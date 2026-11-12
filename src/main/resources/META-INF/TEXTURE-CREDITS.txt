@@ -1,0 +1,13 @@
+Three item textures copied unchanged from TechReborn, branch 1.20, downloaded 2026-11-11.
+Source: https://github.com/TechReborn/TechReborn/tree/1.20
+Copyright (c) 2020 TechReborn. License: MIT (see licenses/TechReborn-MIT.txt).
+Upstream prefix: src/main/resources/assets/techreborn/textures/item/
+ruby.png <- gem/ruby_gem.png
+sapphire.png <- gem/sapphire_gem.png
+silver_ingot.png <- ingot/silver_ingot.png
+Three storage block models downloaded from TechReborn branch 1.16; textures from branch 1.20.
+Models: https://github.com/TechReborn/TechReborn/tree/1.16/src/main/resources/assets/techreborn/models/block/storage
+Textures: https://github.com/TechReborn/TechReborn/tree/1.20/src/main/resources/assets/techreborn/textures/block/storage
+For ruby, sapphire, silver: models/block/storage/<name>_storage_block.json -> models/block/<name>_block.json (texture references adapted to firstmod).
+textures/block/storage/<name>_storage_block.png -> textures/block/<name>_block.png (unchanged).
+Copyright (c) 2020 TechReborn. MIT license: licenses/TechReborn-MIT.txt.

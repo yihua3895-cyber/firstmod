@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "firstmod:item/silver_ingot"
+                 },
+    "parent":  "minecraft:item/generated"
+}

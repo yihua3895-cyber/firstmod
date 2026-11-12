@@ -1,0 +1,188 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+
+group = mod_group_id
+version = mod_version
+
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+minecraft {
+    // 映射可随时更改，但必须遵循以下格式。
+    // 通道：     版本：
+    // official   MCVersion             Mojang 映射文件中的官方字段名和方法名
+    // parchment  YYYY.MM.DD-MCVersion  在官方映射基础上添加社区提供的参数名和 Javadoc 文档
+    //
+    // 使用 'official' 或 'parchment' 映射时，必须了解 Mojang 的许可协议。
+    // 更多信息：https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Parchment 是由 ParchmentMC 维护的非官方项目，独立于 MinecraftForge。
+    // 使用其映射需要额外配置：https://parchmentmc.org/docs/getting-started
+    //
+    // 使用非默认映射需自行承担风险，它们可能无法正常工作。
+    // 更改映射后，重新运行配置任务即可更新工作区。
+    mappings channel: mapping_channel, version: mapping_version
+
+    // 设为 true 时，所有 Eclipse/IntelliJ IDEA 运行配置都会在启动游戏前执行对应的 "prepareX" 任务。
+    // 大多数情况下无需启用。
+    // enableEclipsePrepareRuns = true
+    // enableIdeaPrepareRuns = true
+
+    // 此属性用于配置 Gradle 的 ProcessResources 任务，使其在启动游戏前处理 IDE 输出目录中的资源。
+    // 此模板必须将该属性设为 true 才能正常工作。
+    // 参阅 https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+    copyIdeResources = true
+
+    // 设为 true 时，会将所有已声明运行配置的文件夹名称添加到生成的 IDE 运行配置中。
+    // 可通过运行配置的 "folderName" 属性设置文件夹名称。
+    // 默认情况下，运行配置的文件夹名称为其所属 Gradle 项目的名称。
+    // generateRunFolders = true
+
+    // 此属性用于在开发环境中启用访问转换器。
+    // 访问转换器将应用于 Minecraft 构件。
+    // 访问转换器文件可位于项目中的任意位置。
+    // 但在最终的模组 JAR 中，它必须位于 "META-INF/accesstransformer.cfg"，Forge 才能加载。
+    // 建议使用此默认位置，以便自动将文件放入最终 JAR 中的正确位置。
+    // 更多信息：https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // 默认运行配置。
+    // 可根据需要调整、删除或复制这些配置。
+    runs {
+        // 应用于下方所有运行配置
+        configureEach {
+            workingDirectory project.file('run')
+
+            // 开发环境中建议使用的日志标记
+            // 可按需添加或删除标记，多个标记用逗号分隔。
+            // "SCAN"：用于模组扫描。
+            // "REGISTRIES"：用于记录注册事件的触发。
+            // "REGISTRYDUMP"：用于获取所有注册表的内容。
+            property 'forge.logging.markers', 'REGISTRIES'
+
+
+            // 建议使用的控制台日志级别
+            // 可在此设置不同的日志级别。
+            // 请阅读：https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            // 要从中加载游戏测试的命名空间列表，用逗号分隔。留空表示所有命名空间。
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+
+        // 此运行配置会启动 GameTestServer，运行所有已注册的游戏测试，然后退出。
+        // 默认情况下，未提供游戏测试时服务器会崩溃。
+        // 其他运行配置也默认启用游戏测试系统，可通过 /test 命令使用。
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        data {
+            // 覆盖上方 configureEach 中 workingDirectory 设置的示例
+            workingDirectory project.file('run-data')
+
+            // 指定数据生成所用的模组 ID、生成资源的输出位置以及现有资源的查找位置。
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+// 包含数据生成器生成的资源。
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    // 在此添加依赖仓库
+    // ForgeGradle 会自动添加 Forge Maven 仓库和 Maven 中央仓库
+
+    // 如果 ./libs 中有依赖的模组 JAR，可按以下示例将其声明为仓库。
+    // 参阅 https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
+    // flatDir {
+    //     dir 'libs'
+    // }
+}
+
+dependencies {
+    // 指定要使用的 Minecraft 版本。
+    // 可提供任意构件，只要它具有分类标识为 "userdev" 的构件，且是兼容的补丁构件。
+    // ForgeGradle 会请求并配置分类标识为 "userdev" 的构件。
+    // 如果组 ID 为 "net.minecraft"，且构件 ID 是 ["client", "server", "joined"] 之一，
+    // 则会进行特殊处理，以便无需外部仓库即可配置原版依赖。
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // 以 JEI 为例声明模组依赖：使用 fg.deobf() 确保依赖被重新映射到开发环境使用的映射
+    // JEI API 用于编译阶段，完整的 JEI 构件用于运行阶段
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+
+    // 通过平面目录仓库使用 ./libs 中模组 JAR 的依赖示例
+    // 此依赖对应 ./libs/coolmod-${mc_version}-${coolmod_version}.jar
+    // 查找时会忽略组 ID，此处的组 ID 为 "blank"
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+
+    // 更多信息：
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+}
+
+// 此代码块会在指定的目标资源文件中展开所有已声明的替换属性。
+// 缺少属性将导致错误。属性使用 Groovy 的 ${} 语法展开。
+// 启用 "copyIdeResources" 后，在 IDE 环境中启动游戏前也会执行此操作。
+// 参阅 https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+                             forge_version       : forge_version, forge_version_range: forge_version_range,
+                             loader_version_range: loader_version_range,
+                             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+                             mod_authors         : mod_authors, mod_description: mod_description,]
+
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+// 将属性写入清单文件以供运行时读取的示例。
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(["Specification-Title"     : mod_id,
+                    "Specification-Vendor"    : mod_authors,
+                    "Specification-Version"   : "1", // 当前规范版本为 1
+                    "Implementation-Title"    : project.name,
+                    "Implementation-Version"  : project.jar.archiveVersion,
+                    "Implementation-Vendor"   : mod_authors,
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")])
+    }
+
+    // 这是对 JAR 文件进行重新混淆的推荐方式
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // 使用 UTF-8 字符集编译 Java 代码
+}

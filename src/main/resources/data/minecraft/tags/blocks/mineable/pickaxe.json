@@ -1,0 +1,8 @@
+{
+    "replace":  false,
+    "values":  [
+                   "firstmod:ruby_block",
+                   "firstmod:sapphire_block",
+                   "firstmod:silver_block"
+               ]
+}

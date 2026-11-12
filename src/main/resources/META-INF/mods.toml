@@ -1,0 +1,63 @@
+# 这是 mods.toml 示例文件，包含与模组加载有关的数据。
+# 其中有一些必填字段（标记为“必填”），以及更多可选字段（标记为“可选”）。
+# 整体采用标准 TOML v0.5.0 格式。
+# 注意：此文件中包含若干 TOML 列表。
+# TOML 格式的更多信息：https://github.com/toml-lang/toml
+# 要使用的模组加载器类型名称。对于常规 FML @Mod 模组，应为 javafml。
+modLoader = "javafml" #必填
+# 上述模组加载器的匹配版本范围。对于常规 FML @Mod 模组，它对应 Forge 版本。
+loaderVersion = "${loader_version_range}" #必填：Forge 通常会在每个 Minecraft 版本更新时提高此版本号。版本列表请参阅下载页面。
+# 模组的许可协议。这是必填元数据，用于说明模组的再分发权限。
+# 可在 https://choosealicense.com/ 查看可选协议。默认版权立场为保留所有权利，此处也采用该默认值。
+license = "${mod_license}"
+# 用户遇到模组问题时可访问的问题反馈网址
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #可选
+# 模组列表。允许包含的模组数量由具体的模组加载器决定。
+[[mods]] #必填
+# 模组的唯一标识符
+modId = "${mod_id}" #必填
+# 模组版本号
+version = "${mod_version}" #必填
+# 模组显示名称
+displayName = "${mod_name}" #必填
+# 用于查询模组更新的网址。JSON 更新格式规范：https://docs.minecraftforge.net/en/latest/misc/updatechecker/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #可选
+# 模组主页网址，显示在模组界面中
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #可选
+# 用于显示徽标的文件名，该文件应位于模组 JAR 根目录中
+#logoFile="firstmod.png" #可选
+# 在模组界面中显示的文本字段
+#credits="感谢 Java 提供此示例模组" #可选
+# 在模组界面中显示的文本字段
+authors = "${mod_authors}" #可选
+# Display Test 用于控制服务器连接界面中模组兼容性的显示
+# MATCH_VERSION 表示客户端与服务器的模组版本不一致时显示红叉。这是默认行为，适用于同时包含客户端和服务器功能的模组。
+# IGNORE_SERVER_VERSION 表示服务器安装此模组而客户端未安装时不会显示红叉，适用于仅在服务器使用的模组。
+# IGNORE_ALL_VERSION 表示无论客户端还是服务器安装此模组，都不会因此显示红叉。这是特殊情况，仅适用于不含服务器组件的模组。
+# NONE 表示不设置兼容性显示测试，需自行实现。更多信息请参阅 IExtensionPoint.DisplayTest。使用此值时可自行定义检测方案。
+# 重要提示：此项并不决定模组在哪种环境（CLIENT 客户端或 DEDICATED SERVER 专用服务器）加载。模组应能在所处环境中正常加载，即使不执行任何操作。
+#displayTest="MATCH_VERSION" # 未指定时默认为 MATCH_VERSION（可选）
+
+# 模组描述文本，可使用多行文本（必填）
+description = '''${mod_description}'''
+# 依赖项：使用点号为指定模组 ID 声明依赖。依赖项为可选配置。
+[[dependencies."${mod_id}"]] #可选
+# 依赖模组的唯一标识符
+modId = "forge" #必填
+# 是否必须存在此依赖；若不是，则必须指定下方的加载顺序
+mandatory = true #必填
+# 依赖项的版本范围
+versionRange = "${forge_version_range}" #必填
+# 与依赖项的加载顺序关系。若依赖不是必需的，必须设置为 BEFORE 或 AFTER。
+# BEFORE：本模组在依赖项之前加载
+# AFTER：本模组在依赖项之后加载
+ordering = "NONE"
+# 此依赖适用的运行端：BOTH（两端）、CLIENT（客户端）或 SERVER（服务器端）
+side = "BOTH"# 另一个依赖项
+[[dependencies."${mod_id}"]]
+modId = "minecraft"
+mandatory = true
+# 此版本范围以当前 Minecraft 版本为下限，以下一主版本为上限，且不包含上限版本
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
