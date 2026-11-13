@@ -5,5 +5,9 @@
     "item.firstmod.silver_ingot":  "银锭",
     "block.firstmod.ruby_block":  "红宝石块",
     "block.firstmod.sapphire_block":  "蓝宝石块",
-    "block.firstmod.silver_block":  "银块"
+    "block.firstmod.silver_block":  "银块",
+    "block.firstmod.ruby_ore":  "红宝石矿石",
+    "block.firstmod.sapphire_ore":  "蓝宝石矿石",
+    "block.firstmod.silver_ore":  "银矿石",
+    "item.firstmod.raw_silver":  "粗银"
 }

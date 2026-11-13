@@ -1,0 +1,3 @@
+ruby_ore.png, sapphire_ore.png, silver_ore.png: unmodified textures from TechReborn.
+Source: https://github.com/TechReborn/TechReborn/tree/26.3/src/main/resources/assets/techreborn/textures/block/ore
+License: MIT; see TechReborn-LICENSE.md

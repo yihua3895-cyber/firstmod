@@ -1,0 +1,3 @@
+raw_silver.png: unmodified TechReborn texture.
+Source: https://github.com/TechReborn/TechReborn/blob/26.3/src/main/resources/assets/techreborn/textures/item/rawmetal/raw_silver.png
+License: MIT; see TechReborn-LICENSE.md

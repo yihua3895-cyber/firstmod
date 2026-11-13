@@ -7,7 +7,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -55,10 +54,10 @@ public class Firstmod {
         BLOCKS.register(modEventBus);
         // 将物品的延迟注册器注册到模组事件总线，以完成物品注册
         ITEMS.register(modEventBus);
-        moditems.register(modEventBus);
-        Modblocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
         // 将创造模式物品栏的延迟注册器注册到模组事件总线，以完成物品栏注册
-        modcreativetab.register(modEventBus);
+        ModCreativeTab.register(modEventBus);
 
         // 将当前实例注册到事件总线，以监听服务器事件及其他需要处理的游戏事件
         MinecraftForge.EVENT_BUS.register(this);

@@ -3,6 +3,9 @@
     "values":  [
                    "firstmod:ruby_block",
                    "firstmod:sapphire_block",
-                   "firstmod:silver_block"
+                   "firstmod:silver_block",
+                   "firstmod:ruby_ore",
+                   "firstmod:sapphire_ore",
+                   "firstmod:silver_ore"
                ]
 }
