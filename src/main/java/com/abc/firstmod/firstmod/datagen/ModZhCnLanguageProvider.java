@@ -11,6 +11,8 @@ public class ModZhCnLanguageProvider extends LanguageProvider {
     }
     @Override
     protected void addTranslations() {
+        add("item.firstmod.ruby_coal", "红宝石煤炭");
+        add("item.firstmod.ruby_apple", "红宝石苹果");
         add("creativetab.firstmod.firstmod_tab", "Firstmod");
         add("item.firstmod.ruby", "红宝石");
         add("item.firstmod.sapphire", "蓝宝石");

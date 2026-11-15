@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:apple"
+    },
+    "R": {
+      "item": "firstmod:ruby"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RAR",
+    "RRR"
+  ],
+  "result": {
+    "item": "firstmod:ruby_apple"
+  },
+  "show_notification": true
+}

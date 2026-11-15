@@ -11,6 +11,8 @@ public class ModEnUsLanguageProvider extends LanguageProvider {
     }
     @Override
     protected void addTranslations() {
+        add("item.firstmod.ruby_coal", "Ruby Coal");
+        add("item.firstmod.ruby_apple", "Ruby Apple");
         add("creativetab.firstmod.firstmod_tab", "Firstmod");
         add("item.firstmod.ruby", "Ruby");
         add("item.firstmod.sapphire", "Sapphire");

@@ -17,6 +17,12 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> output) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ModItems.RUBY_APPLE.get())
+                .pattern("RRR").pattern("RAR").pattern("RRR")
+                .define('R', ModItems.RUBY.get())
+                .define('A', net.minecraft.world.item.Items.APPLE)
+                .unlockedBy("has_ruby", has(ModItems.RUBY.get()))
+                .save(output);
         compress(output, ModItems.RUBY.get(), ModBlocks.RUBY_BLOCK.get());
         decompress(output, ModBlocks.RUBY_BLOCK.get(), ModItems.RUBY.get(), "ruby_from_block");
         compress(output, ModItems.SAPPHIRE.get(), ModBlocks.SAPPHIRE_BLOCK.get());

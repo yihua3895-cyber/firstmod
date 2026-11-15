@@ -14,6 +14,16 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ModItems.ITEMS.getEntries().forEach(entry -> basicItem(entry.get()));
+        ModItems.ITEMS.getEntries().forEach(entry -> {
+            if (entry == ModItems.RUBY_APPLE) {
+                withExistingParent("ruby_apple", mcLoc("item/generated"))
+                        .texture("layer0", mcLoc("item/apple"));
+            } else if (entry == ModItems.RUBY_COAL) {
+                withExistingParent("ruby_coal", mcLoc("item/generated"))
+                        .texture("layer0", modLoc("item/ruby_coal"));
+            } else {
+                basicItem(entry.get());
+            }
+        });
     }
 }

@@ -23,4 +23,9 @@ public class ModItems {
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
+    public static final RegistryObject<Item> RUBY_APPLE =
+            ITEMS.register("ruby_apple", () -> new Item(new Item.Properties().food(ModFoods.RUBY_APPLE)));
+    // 原版煤炭燃烧 1600 tick，红宝石煤炭为其十倍。
+    public static final RegistryObject<Item> RUBY_COAL =
+            ITEMS.register("ruby_coal", () -> new ModFuel(new Item.Properties(), 16000));
 }

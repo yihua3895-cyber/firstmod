@@ -18,6 +18,8 @@ public class ModCreativeTab {
                     .icon(() -> new ItemStack(ModItems.RUBY.get()))
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.RUBY.get());
+                        output.accept(ModItems.RUBY_APPLE.get());
+                        output.accept(ModItems.RUBY_COAL.get());
                         output.accept(ModItems.SAPPHIRE.get());
                         output.accept(ModItems.SILVER_INGOT.get());
                         output.accept(ModItems.RAW_SILVER.get());
